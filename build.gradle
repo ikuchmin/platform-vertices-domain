@@ -1,0 +1,57 @@
+group 'ru.osslabs.platform'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenLocal()
+}
+
+dependencies {
+    compile 'ru.osslabs.platform:graph-core:1.1-SNAPSHOT'
+    testCompile 'org.codehaus.groovy:groovy-all:2.4.6:indy'
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+}
+
+task sourceJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allJava
+}
+
+
+publishing {
+    repositories {
+        maven {
+            name 'mavenRepositorySnapshots'
+            credentials {
+                username nexusUsername
+                password nexusPassword
+            }
+            url 'http://maven-repository.osslabs.ru/content/repositories/snapshots/'
+        }
+        maven {
+            name 'mavenRepositoryReleases'
+            credentials {
+                username nexusUsername
+                password nexusPassword
+            }
+            url 'http://maven-repository.osslabs.ru/content/repositories/releases/'
+        }
+    }
+
+    publications {
+        mainJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier = 'sources'
+            }
+        }
+    }
+}
