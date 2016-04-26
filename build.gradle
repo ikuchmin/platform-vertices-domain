@@ -2,10 +2,10 @@ group 'ru.osslabs.platform'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
+apply from: 'provided.gradle'
 
 sourceCompatibility = 1.8
 
@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     compile 'ru.osslabs.platform:graph-core:1.1-SNAPSHOT'
+    provided 'org.projectlombok:lombok:1.16.8'
     testCompile 'org.codehaus.groovy:groovy-all:2.4.6:indy'
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 }
