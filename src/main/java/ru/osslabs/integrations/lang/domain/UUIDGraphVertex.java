@@ -13,7 +13,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class UUIDGraphVertex extends GraphVertex {
-    UUID uuid;
+    protected final UUID uuid;
 
     public UUIDGraphVertex(String name) {
         super(name);
